@@ -1,8 +1,14 @@
-A simple project to demonstrate the use of query projection with both JPA and native queries using Spring Data JPA.
+A simple project to demonstrate the use of the `@Transactional` annotation in a Custom Spring Data JPA repository.
 
-* Spring Boot 1.4.1 RELEASE
-* Spring Data JPA 1.10.3.RELEASE (Hopper SR3)
+* Spring Boot 1.5.8 RELEASE
+* Spring Data JPA 1.11.8.RELEASE (Ingalls SR8)
 
-There is a simple **Person** entity with *id*, *name* and *age* and a **PersonSummary** interface with just *name* and *age*.
+There are two methods in the `PersonRepositoryCustom`
+* requiresExistingTransaction()
+* willStartTransactionIfNoneExists()
 
-There are 6 tests, the tests which make use of native queries fail.
+The `requiresExistingTransaction` method relies on the class (type) level `@Transactional` annotation to provide
+MANDATORY propagation where as the `willStartTransactionIfNoneExists` method overrides the class (type) level annotation
+to provide REQUIRES_NEW propagation.
+
+The tests demonstrate that the overidden `@Transactional` does not appear to work.
